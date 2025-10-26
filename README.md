@@ -59,7 +59,7 @@ Agent response: "Our average transcription latency is 50 milliseconds for real-t
 
 ---
 
-### 2. Structured Prompt Engineering
+### 2. [Structured Prompt Engineering](https://github.com/rahulsense/structuring_prompts)
 
 **Purpose**: Constrain model output through explicit instructions, format specifications, and uncertainty handling protocols.
 
