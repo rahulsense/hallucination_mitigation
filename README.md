@@ -46,7 +46,7 @@ User query: "What's your transcription speed?"
 
 Agent response: "Our average transcription latency is 50 milliseconds for real-time processing."
 
-**Impact**: 70-90% reduction in factual errors
+**Impact**: reduction in factual errors
 
 **Trade-offs**:
 - Infrastructure overhead: Vector database maintenance, embedding pipeline
@@ -97,7 +97,7 @@ Enforce structured outputs to prevent prose-based hallucinations:
 - "XII" → "Twelve"
 - Apply to all job titles and descriptions before vocalization
 
-**Impact**: 40-60% reduction in unsupported claims
+**Impact**: reduction in unsupported claims
 
 **Trade-offs**:
 - Reduced conversational flexibility
@@ -130,7 +130,7 @@ Step 3: Compare results
 
 Step 4: If persistent disagreement: Flag for human review
 
-**Impact**: 50-70% reduction through consistency filtering
+**Impact**: reduction through consistency filtering
 
 **Trade-offs**:
 - Latency increase
@@ -219,15 +219,16 @@ Use parameter-efficient methods (LoRA, QLoRA) to reduce training costs. Target 5
 
 ## Performance Comparison
 
-| Strategy | Hallucination Reduction | Latency Impact | Token Cost Impact | Implementation Complexity | Best For |
+| Strategy | Hallucination Reduction | Latency Impact | Token Usage Increase | Implementation Complexity | Best For |
 |----------|------------------------|----------------|-------------------|---------------------------|----------|
-| RAG | 70-90% | +20-100ms | +200-500 tokens | High (vector DB, embeddings) | Factual queries, dynamic data |
-| Structured Prompts | 40-60% | Minimal | Variable (optimize with compression) | Medium (rule definition) | Guardrails, format enforcement |
-| Verification Loops | 50-70% | +200-500ms | 3-5x tokens | Medium (multi-model orchestration) | Critical accuracy (compliance, legal) |
-| Temperature=0 | 30-50% | None | None | Low (config change) | Deterministic tasks (transcription, extraction) |
-| Fine-Tuning | 60-80% | None (post-training) | None (post-training) | High (data curation, training infra) | Domain-specific terminology |
+| RAG | Very High | Low-Medium | Medium | High | Factual queries, dynamic data |
+| Structured Prompts | Medium-High | Minimal | Variable | Medium | Guardrails, format enforcement |
+| Verification Loops | High | Medium-High | High | Medium | Critical accuracy (compliance, legal) |
+| Temperature=0 | Medium | None | None | Low | Deterministic tasks (transcription, extraction) |
+| Fine-Tuning | High | None | None | Very High | Domain-specific terminology |
 
-**Combined Strategy Impact**: Implementing multiple techniques yields cumulative benefits. RAG + Structured Prompts + Temperature=0 can achieve 85-95% hallucination reduction for factual tasks.
+**Combined Strategy Impact**: 
+- Implementing multiple techniques yields cumulative benefits. RAG + Structured Prompts + Temperature=0 can achieve a huge reduction in hallucination for factual tasks.
 ---
 
 ## Common Pitfalls and Solutions
@@ -246,31 +247,18 @@ Use parameter-efficient methods (LoRA, QLoRA) to reduce training costs. Target 5
 
 ---
 
-### Pitfall 3: Verification Loops Timeout Due to Latency
-**Problem**: Multi-step verification exceeds voice AI latency budgets.
-
-**Solution**: Implement async verification for non-critical paths. Return initial response immediately, validate asynchronously, flag discrepancies for follow-up. Use verification selectively (high-stakes queries only).
-
----
-
-### Pitfall 4: Fine-Tuned Models Become Stale
+### Pitfall 3: Fine-Tuned Models Become Stale
 **Problem**: Model knowledge drifts from current product state after deployment.
 
 **Solution**: Establish monthly retraining schedule. Combine fine-tuning with RAG for dynamic information. Version control training datasets. Maintain changelog for knowledge base updates.
 
 ---
 
-### Pitfall 5: Timezone Calculations Introduce Errors
+### Pitfall 4: Timezone Calculations Introduce Errors
 **Problem**: Daylight saving time, timezone abbreviation ambiguities cause scheduling hallucinations.
 
 **Solution**: Always use IANA canonical timezone names (America/Los_Angeles, not PST). Explicitly confirm timezone with user for all specific time requests. Validate all calculated times are future times within 7-day window before accepting.
 
----
-
-### Pitfall 6: Pronunciation Rules Create Unnatural Speech
-**Problem**: Overly rigid pronunciation enforcement sounds robotic.
-
-**Solution**: Apply pronunciation rules selectively to known problem patterns (401K, currency, URLs). Allow natural variation for common words. Test with actual TTS output, not just text review.
 
 
 
