@@ -1,4 +1,4 @@
-# Reducing LLM Hallucinations in Voice AI Systems
+# Reducing Hallucinations in Voice AI Systems
 
 Minimizing hallucinations in conversational AI agents, with specific focus on SenseHQ's Voice AI
 
