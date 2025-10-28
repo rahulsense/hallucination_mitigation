@@ -1,6 +1,6 @@
 # Reducing Hallucinations in Voice AI Systems
 
-Minimizing hallucinations in conversational AI agents, with specific focus on SenseHQ's Voice AI
+Minimizing hallucinations in conversational AI agents (Voice AI)
 
 ---
 
